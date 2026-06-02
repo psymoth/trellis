@@ -156,10 +156,10 @@ pnpm release:promote
 7. `release-preflight check-versions`
 8. version commit with the version string as the commit message
 9. git tag `v<version>`
-10. push branch and tags
+10. push the release branch target and the current `v<version>` tag
 11. GitHub Actions publish workflow builds, tests, packs, publishes, and verifies both packages
 
-The release script does not publish locally. The pushed tag is what starts official npm publication.
+The release script does not publish locally. The pushed current-version tag is what starts official npm publication. Do not push every local tag during release; stale local tags may already exist on the remote and can make the release command fail after the intended tag has been created.
 
 ---
 

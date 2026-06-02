@@ -99,7 +99,8 @@ function main() {
   runGit(["add", "packages/cli/package.json", "packages/core/package.json"]);
   runGit(["commit", "-m", version]);
   runGit(["tag", `v${version}`]);
-  runGit(["push", "origin", pushTarget(type), "--tags"]);
+  runGit(["push", "origin", pushTarget(type)]);
+  runGit(["push", "origin", `v${version}`]);
 }
 
 main();
