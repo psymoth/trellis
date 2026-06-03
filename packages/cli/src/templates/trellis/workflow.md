@@ -174,7 +174,7 @@ Create new children with `task.py create "<title>" --slug <name> --parent <paren
 <!-- Per-turn breadcrumb: shown when there is no active task (before Phase 1) -->
 
 [workflow-state:no_task]
-Goal entry: if the user's current request invokes `/goal`, goal mode, unattended work, auto-advance, or long-running autonomous execution, load `trellis-goal`. It creates or updates a Trellis task, preserves raw input in `prd.md`, writes the Goal Contract and checkpoint/evidence plan into Trellis artifacts, starts the task only after its quality gate passes, then bridges to Codex native goal mode with `create_goal`.
+Goal entry: load `trellis-goal` only if the user's current request explicitly invokes `/goal`, asks for Codex native Goal Mode, requests unattended or long-running autonomous execution, or asks to draft/review/convert a Trellis-backed Goal Contract. Do not route ordinary multi-step tasks, lightweight prompts, simple Q&A, short reviews, or generic "keep working until done" requests into goal mode. `trellis-goal` creates or updates a Trellis task, preserves raw input in `prd.md`, writes the Goal Contract and checkpoint/evidence plan into Trellis artifacts, starts the task only after its quality gate passes, then bridges to Codex native goal mode with `create_goal`.
 No active task. First classify the current turn and ask for task-creation consent before creating any Trellis task.
 Simple conversation / small task: ask only whether this turn should create a Trellis task. If the user says no, skip Trellis for this session.
 Complex task: ask the user if you can create a Trellis task and enter the planning phase. If the user says no, explain, clarify scope, or suggest a smaller split.
@@ -279,7 +279,7 @@ When a user request matches one of these intents inside an active task, route fi
 [Claude Code, Cursor, OpenCode, codex-sub-agent, Kiro, Gemini, Qoder, CodeBuddy, Copilot, Droid, Pi]
 
 - Planning or unclear requirements -> `trellis-brainstorm`.
-- `/goal`, goal mode, unattended autonomous work, or auto-advance -> `trellis-goal`.
+- `/goal`, Codex native Goal Mode, explicit unattended/long-running autonomous execution, or Goal Contract drafting/conversion -> `trellis-goal`.
 - Requirement/design pressure-testing with the user participating -> `trellis-grill-me`; explicitly authorized unattended/proxy artifact grilling -> `trellis-grill-agents`.
 - `in_progress` implementation/check -> dispatch `trellis-implement` / `trellis-check`.
 - Repeated debugging -> `trellis-break-loop`; spec updates -> `trellis-update-spec`.
@@ -289,7 +289,7 @@ When a user request matches one of these intents inside an active task, route fi
 [codex-inline, Kilo, Antigravity, Windsurf]
 
 - Planning or unclear requirements -> `trellis-brainstorm`.
-- `/goal`, goal mode, unattended autonomous work, or auto-advance -> `trellis-goal`.
+- `/goal`, Codex native Goal Mode, explicit unattended/long-running autonomous execution, or Goal Contract drafting/conversion -> `trellis-goal`.
 - Requirement/design pressure-testing with the user participating -> `trellis-grill-me`; explicitly authorized unattended/proxy artifact grilling -> `trellis-grill-agents`.
 - Before editing -> `trellis-before-dev`; after editing -> `trellis-check`.
 - Repeated debugging -> `trellis-break-loop`; spec updates -> `trellis-update-spec`.

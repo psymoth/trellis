@@ -57,4 +57,4 @@ Use for PR, branch, or merge-readiness review.
 
 ## Custom
 
-Use the five-section contract directly. Require at least three acceptance items and three stop conditions before execution starts.
+Use the five-section contract directly. Match evidence counts to risk: complex, high-risk, long-running, repo-wide, or code-modifying goals need at least three acceptance items and three stop conditions; bounded medium goals need at least two acceptance items and one stop condition. Do not add filler criteria to make a lightweight goal look heavier; explain why ordinary Trellis flow is a better fit when the request is too small for Goal Mode.

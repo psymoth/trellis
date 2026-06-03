@@ -26,11 +26,11 @@ Only include this section when converting an existing task. Preserve useful prio
 - Done When:
   1. <verifiable artifact>
   2. <verifiable artifact>
-  3. <verifiable artifact>
+  3. <required for complex/high-risk/code-modifying goals; omit filler for bounded medium goals>
 - Stop If:
   1. <mechanically detectable condition plus detection method>
-  2. <mechanically detectable condition plus detection method>
-  3. <mechanically detectable condition plus detection method>
+  2. <required for complex/high-risk/code-modifying goals; omit filler for bounded medium goals>
+  3. <required for complex/high-risk/code-modifying goals; omit filler for bounded medium goals>
 - Token Budget: <number only if user supplied one, otherwise "not specified">
 - Project Type: <detected type and evidence>
 - Scenario: <scenario or Custom>
@@ -84,8 +84,8 @@ Only include when Trellis artifacts are ready but Codex native goal handoff cann
 ## Initialization Gate Evidence
 
 - Goal marker: `task.py mark-goal ...` <result or pending reason>
-- Done When mapping: <each item maps to checkpoint acceptance or final verification>
-- Stop If detection: <each stop condition has a detection method>
+- Done When mapping: <each item maps to checkpoint acceptance or final verification; complex/high-risk/code-modifying goals have at least 3, bounded medium goals have at least 2>
+- Stop If detection: <each stop condition has a detection method; complex/high-risk/code-modifying goals have at least 3, bounded medium goals have at least 1>
 - Ambiguity handling: <low defaults / grill-agents files / blocked>
 - Context curation: <implement.jsonl/check.jsonl entries or inline equivalent>
 - Checkpoint counts: <work/check checkpoint count>

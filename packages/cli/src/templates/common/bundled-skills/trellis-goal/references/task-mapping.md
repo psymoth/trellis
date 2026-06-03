@@ -8,6 +8,7 @@ Trellis Goal uses the existing Trellis task lifecycle as durable context for a C
 |---|---|
 | Lifecycle status | `task.json.status` (`planning`, `in_progress`, existing archive flow) |
 | Goal routing marker | `task.json.meta.trellis_goal` |
+| Parent/child hierarchy | `task.json.parent` and `task.json.children` |
 | Raw request and Goal Contract | `prd.md` |
 | Technical design, evidence, risks, verification commands | `design.md` |
 | Native-goal checkpoints and progress evidence | `implement.md` |
@@ -16,6 +17,18 @@ Trellis Goal uses the existing Trellis task lifecycle as durable context for a C
 | Long research or grill output | `research/*.md` |
 
 Do not create another goal directory, checkpoint queue, task status, runtime mailbox, or hidden durable state.
+
+## Parent And Child Tasks
+
+A Trellis Goal may live on a parent task. In that shape:
+
+- the parent task is the Codex native goal entrypoint and owns the Goal Contract;
+- child tasks remain ordinary Trellis tasks for breakdown, ownership, progress structure, and evidence;
+- `task.py goal-info <parent>` is the audit entrypoint for goal metadata, checkpoint progress, child task status, and hierarchy warnings;
+- archived child tasks still count as done for parent progress when they remain in the parent `children` list;
+- a child task marked with `task.json.meta.trellis_goal` is an independent possible handoff marker, not a child goal automatically executed by the parent.
+
+Do not add `goal_children`, a checkpoint queue, a local scheduler, or a fan-out native-goal runtime. Native Codex goal state remains singular and external to Trellis task hierarchy.
 
 ## Metadata Shape
 
@@ -112,3 +125,5 @@ python3 ./.trellis/scripts/task.py goal-info <task>
 ```
 
 Use the output to confirm cadence, source, original status, conversion time, and checkpoint summary before choosing the next native goal handoff or continuation step.
+
+For parent goals, also use the output to confirm child task statuses and hierarchy warnings before deciding whether the next evidence checkpoint is ready to execute.

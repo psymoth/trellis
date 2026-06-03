@@ -11,6 +11,8 @@ Trellis Goal prepares a normal Trellis task and bridges it into Codex native goa
 
 `implement.md` checkpoints are evidence and recovery landmarks. They help the native goal resume and report progress; they are not a local queue, mailbox, or second execution runtime.
 
+Parent/child task links are still ordinary Trellis hierarchy. A parent task can be the goal entrypoint while child tasks remain work-breakdown and evidence units. The parent native goal may read child task status through `task.py goal-info <parent>`, but it must not auto-spawn or auto-run native goals for those children.
+
 ## Initialization
 
 1. **Inspect native goal state**
@@ -77,6 +79,8 @@ At the start of every continuation:
 
 Evidence can be diff review, command output, logs, tests, typecheck, build, UI inspection, file review, or another concrete artifact suited to the checkpoint. Do not mark a checkpoint done from confidence alone.
 
+For parent goals, `goal-info` child summaries are context, not a completion oracle. Use them to identify missing evidence, drift, or archived work, but only mark the native goal complete when the Goal Contract and final verification evidence are satisfied.
+
 ## Native Status Policy
 
 - `Active`: continue the objective and keep Trellis artifacts current.
@@ -99,8 +103,9 @@ When the Goal Contract is satisfied:
 1. Verify every `Done When` item with evidence.
 2. Confirm no `Stop If` condition is active.
 3. Run required tests, lint, typecheck, build, screenshots, or static checks.
-4. Update `implement.md` and task artifacts with final evidence and remaining risks.
-5. Follow Trellis Phase 3.4 commit confirmation and finish/archive policy.
-6. Call `update_goal(status="complete")` only when no required work remains.
+4. For parent goals, review `task.py goal-info <task>` and resolve or record hierarchy warnings before final status.
+5. Update `implement.md` and task artifacts with final evidence and remaining risks.
+6. Follow Trellis Phase 3.4 commit confirmation and finish/archive policy.
+7. Call `update_goal(status="complete")` only when no required work remains.
 
 If commit confirmation or archive policy requires user confirmation, record the pending plan and stop there; do not claim full completion until the normal Trellis finish path is complete.

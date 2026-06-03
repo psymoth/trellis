@@ -49,6 +49,12 @@ from .safe_commit import (
     safe_archive_paths_to_add,
     safe_git_add,
 )
+from .tasks import (
+    describe_task_hierarchy,
+    find_archived_task_by_dir_name,
+    iter_active_tasks,
+    load_task,
+)
 from .task_utils import (
     archive_task_complete,
     find_task_by_name,
@@ -83,22 +89,6 @@ def ensure_tasks_dir(repo_root: Path) -> Path:
         archive_dir.mkdir(parents=True)
 
     return tasks_dir
-
-
-def _find_archived_task_by_dir_name(tasks_dir: Path, dir_name: str) -> Path | None:
-    """Find an archived task directory with the exact active-task dir name."""
-    archive_dir = tasks_dir / DIR_ARCHIVE
-    if not archive_dir.is_dir():
-        return None
-
-    for month_dir in sorted(archive_dir.iterdir()):
-        if not month_dir.is_dir():
-            continue
-        candidate = month_dir / dir_name
-        if candidate.is_dir():
-            return candidate
-
-    return None
 
 
 def _repo_relative_path(path: Path, repo_root: Path) -> str:
@@ -228,6 +218,41 @@ def _goal_metadata(data: dict) -> dict | None:
     return trellis_goal
 
 
+def _print_goal_hierarchy(task_dir: Path, repo_root: Path) -> None:
+    """Print parent/child task context for goal-info."""
+    task = load_task(task_dir)
+    if task is None:
+        return
+
+    tasks_dir = get_tasks_dir(repo_root)
+    all_tasks = {t.dir_name: t for t in iter_active_tasks(tasks_dir)}
+    hierarchy = describe_task_hierarchy(task, all_tasks, tasks_dir)
+
+    print("Hierarchy:")
+    print(f"  Parent: {hierarchy.parent or '-'}")
+
+    if hierarchy.total_count == 0:
+        print("  Children: 0")
+    else:
+        print(f"  Children: {hierarchy.total_count} [{hierarchy.done_count}/{hierarchy.total_count} done]")
+        for child in hierarchy.children:
+            goal_tag = " [goal]" if child.is_goal else ""
+            archive_tag = " [archived]" if child.is_archived else ""
+            active_tag = "" if child.is_active or child.is_archived else " [missing]"
+            assignee = child.assignee or "-"
+            parent = child.parent or "-"
+            print(
+                "    - "
+                f"{child.dir_name}/ ({child.status}){goal_tag}{archive_tag}{active_tag} "
+                f"[{assignee}] parent={parent}"
+            )
+
+    if hierarchy.warnings:
+        print("  Warnings:")
+        for warning in hierarchy.warnings:
+            print(f"    - {warning}")
+
+
 def _parse_goal_checkpoints(implement_path: Path) -> tuple[int, dict[str, int], str | None]:
     """Parse implement.md checkpoint headings and status lines."""
     counts: dict[str, int] = {
@@ -340,6 +365,8 @@ def cmd_goal_info(args: argparse.Namespace) -> int:
         print(f"  Converted At: {goal.get('converted_at', '-')}")
         print(f"  Updated At: {goal.get('updated_at', '-')}")
 
+    _print_goal_hierarchy(task_dir, repo_root)
+
     total, counts, next_checkpoint = _parse_goal_checkpoints(task_dir / "implement.md")
     print("Checkpoints:")
     print(f"  Total: {total}")
@@ -404,7 +431,7 @@ def cmd_create(args: argparse.Namespace) -> int:
     task_dir = tasks_dir / dir_name
     task_json_path = task_dir / FILE_TASK_JSON
 
-    archived_task_dir = _find_archived_task_by_dir_name(tasks_dir, dir_name)
+    archived_task_dir = find_archived_task_by_dir_name(tasks_dir, dir_name)
     if archived_task_dir:
         print(colored(f"Error: Task already archived: {dir_name}", Colors.RED), file=sys.stderr)
         print(f"Archived at: {_repo_relative_path(archived_task_dir, repo_root)}", file=sys.stderr)

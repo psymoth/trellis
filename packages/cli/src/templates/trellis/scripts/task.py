@@ -46,7 +46,7 @@ from common.active_task import (
 )
 from common.io import read_json, write_json
 from common.task_utils import resolve_task_dir, run_task_hooks
-from common.tasks import iter_active_tasks, children_progress
+from common.tasks import children_progress, is_trellis_goal, iter_active_tasks
 
 # Import command handlers from split modules (also re-exports for plan.py compatibility)
 from common.task_store import (
@@ -232,6 +232,7 @@ def cmd_list(args: argparse.Namespace) -> int:
 
         # Children progress
         progress = children_progress(t.children, all_statuses)
+        goal_tag = " [goal]" if is_trellis_goal(t) else ""
 
         # Package tag
         pkg_tag = f" @{t.package}" if t.package else ""
@@ -239,9 +240,9 @@ def cmd_list(args: argparse.Namespace) -> int:
         prefix = "  " * indent + "  - "
 
         if filter_mine:
-            print(f"{prefix}{dir_name}/ ({t.status}){pkg_tag}{progress}{marker}")
+            print(f"{prefix}{dir_name}/ ({t.status}){goal_tag}{pkg_tag}{progress}{marker}")
         else:
-            print(f"{prefix}{dir_name}/ ({t.status}){pkg_tag}{progress} [{colored(t.assignee or '-', Colors.CYAN)}]{marker}")
+            print(f"{prefix}{dir_name}/ ({t.status}){goal_tag}{pkg_tag}{progress} [{colored(t.assignee or '-', Colors.CYAN)}]{marker}")
         count += 1
 
         # Print children indented

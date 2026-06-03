@@ -2,6 +2,10 @@
 
 The Goal Contract turns a loose Trellis-backed goal request into a bounded, verifiable Codex native goal. It lives in `prd.md`; `design.md` records the technical boundary; `implement.md` records checkpoints and evidence for native-goal continuation.
 
+Use a Trellis Goal only when the work is bigger than one normal prompt, has a durable objective, and can be checked against evidence over multiple turns. A normal Trellis task or normal Codex prompt is better for one-off edits, simple explanations, short reviews, focused debugging, lightweight implementation requests, or any request where the user expects one answer and then a stop.
+
+Do not create a Trellis Goal for a vague finish line or a loose backlog of unrelated work. First draft or critique a bounded Goal Contract when the user asks for goal text or Goal Mode; otherwise keep the work in ordinary Trellis flow.
+
 ## Required Fields
 
 Every execution goal must contain:
@@ -23,8 +27,9 @@ Before calling `create_goal`, verify:
 - The raw user request is preserved verbatim.
 - Objective has one concrete final state.
 - Scope is smaller than "the whole repository" unless the goal is read-only or the output is tightly bounded.
-- At least three `Done When` items exist.
-- At least three `Stop If` items exist.
+- Complex, high-risk, long-running, repo-wide, or code-modifying goals have at least three `Done When` items and at least three `Stop If` items.
+- Bounded medium goals have at least two `Done When` items and at least one `Stop If` item.
+- Lightweight goal-drafting requests do not contain filler criteria; either keep the contract concise or record why a normal prompt/Trellis task is the better fit.
 - Each `Done When` item maps to one or more checkpoint acceptance checks or final verification items.
 - Each `Stop If` item includes a detection method.
 - Vague words such as "improve", "optimize", "all", "everything", and "clean up" are converted into bounded actions.

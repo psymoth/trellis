@@ -1,6 +1,6 @@
 ---
 name: trellis-goal
-description: "Use inside Trellis-managed Codex projects when a user invokes /goal, mentions goal mode, target mode, unattended autonomous work, run-to-completion goals, long-running auto-advance tasks, or asks to initialize, convert, continue, pause, block, or complete an audit-friendly Trellis-backed Codex goal. Also trigger on 目标模式, 无人值守任务, 自动推进, 长期任务, 一次性跑完, 跑完整个父 task, and keep working until done."
+description: "Use inside Trellis-managed Codex projects only when a user explicitly invokes /goal, asks about Codex native Goal Mode, requests unattended or long-running autonomous work, asks to initialize/convert/continue/pause/block/complete an audit-friendly Trellis-backed Codex goal, or asks to draft/review goal text. Also trigger on 目标模式, 无人值守任务, 长期自主执行, 自动推进, 需求加 goal, and 帮我写 goal. Do not trigger for ordinary multi-step coding tasks, lightweight prompts, simple Q&A, short reviews, or generic phrases like keep working until done unless the user clearly wants Goal Mode."
 ---
 
 # Trellis Goal
@@ -12,6 +12,7 @@ The boundary is strict:
 - Trellis owns `prd.md`, `design.md`, `implement.md`, optional `implement.jsonl` / `check.jsonl`, and `task.json.meta.trellis_goal`.
 - Codex owns the active native goal created with `create_goal`.
 - Trellis artifacts are context and evidence checkpoints for the Codex goal, not a second execution engine.
+- Trellis parent/child task links remain ordinary `task.json.parent` / `task.json.children` links. A parent task may be the goal entrypoint; child tasks are Trellis work breakdown and evidence units, not automatically spawned native goals.
 
 Official native limits to preserve:
 
@@ -21,6 +22,14 @@ Official native limits to preserve:
 - Active goal continuations are ignored in Plan mode. Do not start or promise unattended auto-advance while the current environment is in Plan mode.
 
 ## Entry Modes
+
+### When Not To Use Trellis Goal
+
+Do not upgrade ordinary Trellis work into Goal Mode merely because it is multi-step. A normal Trellis task or normal Codex prompt remains the right path for one-off edits, simple explanations, short code reviews, focused debugging, small implementation requests, or questions where the user expects one answer and then a stop.
+
+Do not use Trellis Goal when the finish line is vague, such as "make this better", "clean this up", "optimize everything", or a loose backlog of unrelated work. Use contract-only mode to draft or critique a bounded Goal Contract only when the user asks for goal text, goal design, or Goal Mode.
+
+If the user says "continue", "finish this", "keep going", or "do it until done" during ordinary Trellis coding, treat it as normal task persistence unless they also mention `/goal`, Goal Mode, unattended execution, autonomous long-running work, or a persistent objective.
 
 1. **New goal request**: when the user invokes `/goal <request>` or asks Trellis to run an unattended goal, read `references/goal-contract.md`, `references/task-mapping.md`, `references/ambiguity-handling.md`, `references/trellis-goal-protocol.md`, and `references/prd-mapping.md`. Create a normal Trellis task, initialize the Goal Contract, design, and checkpoints, run `task.py mark-goal <task> --source new-request`, activate the task when the gate passes, then call Codex native `create_goal`.
 2. **Planning task conversion**: when an existing planning task should become a goal, preserve useful PRD material as evidence, rewrite the goal-facing sections into the Goal Contract structure, create/update `design.md` and `implement.md`, run `task.py mark-goal <task> --source planning-task`, activate after the gate passes, then call `create_goal`.
@@ -38,6 +47,7 @@ The compact objective must include:
 
 - the active Trellis task path
 - a requirement to read `task.json.meta.trellis_goal`, `prd.md`, `design.md`, `implement.md`, and context manifests when present
+- a requirement to run or mentally reproduce `task.py goal-info <task>` so parent/child task context and hierarchy warnings are visible
 - a one-line objective summary plus current cadence / next-checkpoint hint
 - an instruction that `prd.md` is the Goal Contract source, `design.md` is the technical boundary source, and `implement.md` checkpoints are evidence checkpoints rather than a separate queue
 - the required verification command or evidence policy, compressed to a path or short phrase when detailed in `implement.md`
@@ -83,6 +93,8 @@ When `get_goal` is available, inspect the native goal before continuing, bridgin
 - Do not edit business/source code during goal initialization. Initialization writes only Trellis task artifacts and context manifests.
 - Preserve the raw user request verbatim in `prd.md`.
 - `prd.md` is the Goal Contract source of truth; `design.md` is the technical design source of truth; `implement.md` is the checkpoint/evidence source of truth.
+- A parent task can be marked as the Trellis Goal. Its child tasks stay ordinary Trellis tasks used for breakdown, ownership, and evidence; do not auto-create or auto-run native goals for each child.
+- If a child task is also marked with `task.json.meta.trellis_goal`, treat it as an independent possible handoff marker. Do not run it concurrently or implicitly under the parent native goal.
 - Never invent or infer a token budget. User-supplied token budgets are optional and must be passed to `create_goal` only when explicit.
 - Do not mark the native goal blocked or complete merely because it is paused, budget-limited, usage-limited, or the current turn is ending.
 - Use `task.py mark-goal` for `task.json.meta.trellis_goal`; do not hand-edit goal metadata.

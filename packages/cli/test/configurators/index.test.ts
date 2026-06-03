@@ -406,6 +406,23 @@ describe("collectPlatformTemplates", () => {
     }
   });
 
+  it("trellis-grill-agents bundled skill preserves unattended grill guardrails", () => {
+    const result = collectPlatformTemplates("codex");
+    const skill = result?.get(".agents/skills/trellis-grill-agents/SKILL.md");
+    const details = result?.get(
+      ".agents/skills/trellis-grill-agents/references/details.md",
+    );
+
+    expect(skill).toContain("Treat `lightweight` and `deep` as modes");
+    expect(skill).toContain("Maintain an internal decision ledger");
+    expect(skill).toContain("Run the final checklist");
+    expect(skill).toContain("Respondent Answer Menu");
+    expect(details).toContain("### Respondent Answer Menu");
+    expect(details).toContain("## Decision Ledger");
+    expect(details).toContain("## Write-Back Promotion Test");
+    expect(details).toContain("## Final Checklist");
+  });
+
   // POSIX-key invariant: collector keys feed the cross-platform hash
   // dictionary in `.template-hashes.json`, which must be identical
   // regardless of host OS. Backslash separators (Windows `path.join`)

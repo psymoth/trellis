@@ -190,4 +190,74 @@ describe.skipIf(PYTHON_CMD === null)("task.py Trellis goal commands", () => {
     expect(info.stdout).toContain("blocked: 1");
     expect(info.stdout).toContain("Next: Checkpoint 2: Add focused tests (pending)");
   });
+
+  it("goal-info reports child task hierarchy and drift warnings", () => {
+    writeTask(tmp, "06-01-parent-goal", "in_progress", {
+      children: [
+        "06-01-child-done",
+        "06-01-child-goal",
+        "06-01-child-drift",
+        "06-01-child-missing",
+      ],
+    });
+    writeTask(tmp, "06-01-child-done", "completed", {
+      parent: "06-01-parent-goal",
+    });
+    writeTask(tmp, "06-01-child-goal", "in_progress", {
+      parent: "06-01-parent-goal",
+      meta: {
+        trellis_goal: {
+          enabled: true,
+          version: 1,
+          cadence: "checkpoint-bounded",
+          source: "planning-task",
+        },
+      },
+    });
+    writeTask(tmp, "06-01-child-drift", "planning", {
+      parent: "06-01-other-parent",
+    });
+    writeTask(tmp, "06-01-orphan-child", "planning", {
+      parent: "06-01-parent-goal",
+    });
+
+    const mark = runTask(tmp, "mark-goal", "06-01-parent-goal");
+    expect(mark.status).toBe(0);
+
+    const info = runTask(tmp, "goal-info", "06-01-parent-goal");
+
+    expect(info.status).toBe(0);
+    expect(info.stdout).toContain("Hierarchy:");
+    expect(info.stdout).toContain("Parent: -");
+    expect(info.stdout).toContain("Children: 4 [1/4 done]");
+    expect(info.stdout).toContain(
+      "06-01-child-done/ (completed) [test] parent=06-01-parent-goal",
+    );
+    expect(info.stdout).toContain(
+      "06-01-child-goal/ (in_progress) [goal] [test] parent=06-01-parent-goal",
+    );
+    expect(info.stdout).toContain("Child listed but not found");
+    expect(info.stdout).toContain("Child parent mismatch");
+    expect(info.stdout).toContain(
+      "Task points to this parent but is missing from children list: 06-01-orphan-child",
+    );
+  });
+
+  it("list marks Trellis goal tasks in the task hierarchy", () => {
+    writeTask(tmp, "06-01-parent-goal", "in_progress", {
+      children: ["06-01-child-task"],
+    });
+    writeTask(tmp, "06-01-child-task", "planning", {
+      parent: "06-01-parent-goal",
+    });
+
+    const mark = runTask(tmp, "mark-goal", "06-01-parent-goal");
+    expect(mark.status).toBe(0);
+
+    const list = runTask(tmp, "list");
+
+    expect(list.status).toBe(0);
+    expect(list.stdout).toContain("06-01-parent-goal/ (in_progress) [goal]");
+    expect(list.stdout).toContain("06-01-child-task/ (planning)");
+  });
 });
