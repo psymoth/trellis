@@ -145,3 +145,37 @@ Localized default human-readable task artifacts to Chinese while preserving Engl
 ### Next Steps
 
 - None - task complete
+
+
+## Session 5: Restore trellis-grill-me
+
+**Date**: 2026-06-05
+**Task**: Restore trellis-grill-me
+**Branch**: `main`
+
+### Summary
+
+Restored Trellis-native attended grill skill for Codex, routed Grill Gate decisions to trellis-grill-me, updated generation tests, and archived the task after validation.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `7f14da2d` | (see git log) |
+| `224a50b` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

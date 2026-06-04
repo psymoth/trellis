@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 4
+- **Total Sessions**: 5
 - **Last Active**: 2026-06-05
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~147 | Active |
+| `journal-1.md` | ~181 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 5 | 2026-06-05 | Restore trellis-grill-me | `7f14da2d`, `224a50b` | `main` |
 | 4 | 2026-06-05 | Chinese human-readable Trellis artifacts | `0c62e6c1` | `main` |
 | 3 | 2026-06-04 | Autonomous Trellis Goal workflow | `7758e99d` | `main` |
 | 2 | 2026-06-04 | Architecture shaping workflow | `bab60ee4` | `main` |
