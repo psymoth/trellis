@@ -21,6 +21,17 @@ Official native limits to preserve:
 - Official docs describe goals as able to work for multiple or many hours. Do not promise uninterrupted multi-day or multi-week execution.
 - Active goal continuations are ignored in Plan mode. Do not start or promise unattended auto-advance while the current environment is in Plan mode.
 
+## Delegated Autonomy Model
+
+Goal Mode is different from an ordinary Trellis task because the agent is delegated to keep moving when the goal objective stays the same. The delegation is bounded by the Goal Contract and must be recorded in Trellis artifacts.
+
+- **Autonomy Charter**: `prd.md` must say what the agent may decide without asking the user and what remains user-owned.
+- **Frozen Invariants**: objective, scope, out-of-scope boundaries, hard constraints, acceptance semantics, security/credential/legal/production/data-integrity boundaries, and Codex/Trellis ownership boundaries cannot be weakened or reinterpreted by the agent.
+- **Decision Harness**: low-risk decisions may be evidence-only; medium ambiguity and nontrivial technical choices use `trellis-grill-agents` for unattended pressure testing; high-risk, scope-changing, or user-owned choices become Stop/Block.
+- **Autonomous Research Protocol**: when current external evidence is needed, use the project-approved `smart-search` CLI path, fetch key sources, and record source URLs plus adopt/reject reasoning. Do not use unapproved web search paths.
+- **Evidence Chain**: `implement.md` records current evidence, accepted decisions, rejected options, overturned assumptions, verification commands/results, remaining uncertainty, and recovery points.
+- **Stop/Block**: when the next decision would change a Frozen Invariant, require credentials/payment/production/destructive/legal authority, or choose a private user preference, stop the affected path, record a Stop/Block entry, and use native `update_goal(status="blocked")` only under the Status Policy.
+
 ## Entry Modes
 
 ### When Not To Use Trellis Goal
@@ -50,8 +61,9 @@ The compact objective must include:
 - a requirement to run or mentally reproduce `task.py goal-info <task>` so parent/child task context and hierarchy warnings are visible
 - a one-line objective summary plus current cadence / next-checkpoint hint
 - an instruction that `prd.md` is the Goal Contract source, `design.md` is the technical boundary source, and `implement.md` checkpoints are evidence checkpoints rather than a separate queue
+- an instruction to execute autonomously inside the `Autonomy Charter`, preserve `Frozen Invariants`, and use the `Decision Harness`, `Autonomous Research Protocol`, `Evidence Chain`, and `Stop/Block` boundary
 - the required verification command or evidence policy, compressed to a path or short phrase when detailed in `implement.md`
-- a requirement to update Trellis artifacts with work performed, verification evidence, remaining risk, blockers, and final status
+- a requirement to update Trellis artifacts with work performed, verification evidence, accepted/rejected/overturned decisions, remaining risk, blockers, and final status
 - a requirement to follow normal Trellis Phase 3.4 commit and finish/archive policy
 - a requirement to use Codex native `update_goal` only when the goal is genuinely complete or blocked
 
@@ -62,8 +74,9 @@ Complete the Trellis-backed goal for <task path>.
 Sources to read first: task.json meta, prd.md, design.md, implement.md, and context manifests when present.
 Objective: <one-line summary only; full contract is in prd.md>.
 Next checkpoint: <checkpoint title/status from implement.md, or start at first pending checkpoint>.
-Rules: prd.md is the Goal Contract source; design.md is the technical boundary source; implement.md checkpoints are evidence checkpoints, not a second queue.
-Verify/report: follow implement.md verification policy, update Trellis artifacts with evidence/risks/blockers, follow Trellis Phase 3.4, and call update_goal only for genuine complete/blocked terminal states.
+Autonomy: work autonomously inside the Goal Contract and Autonomy Charter; keep Frozen Invariants unchanged; use trellis-grill-agents for medium ambiguity and smart-search evidence for external/current claims; Stop/Block high-risk or user-owned boundaries.
+Rules: prd.md is the Goal Contract source; design.md is the technical boundary source; implement.md checkpoints and Evidence Chain are recovery/evidence landmarks, not a second queue.
+Verify/report: follow implement.md verification policy, update Trellis artifacts with evidence/risks/blockers and accepted/rejected/overturned decisions, follow Trellis Phase 3.4, and call update_goal only for genuine complete/blocked terminal states.
 ```
 
 Do not paste the full raw request, Goal Contract, checkpoint list, project rules, or spec excerpts into the native objective when those details already live in Trellis files. If `create_goal` rejects the handoff for length, compress the objective and retry once before recording a handoff blocker.
@@ -100,7 +113,8 @@ When `get_goal` is available, inspect the native goal before continuing, bridgin
 - Use `task.py mark-goal` for `task.json.meta.trellis_goal`; do not hand-edit goal metadata.
 - Use `task.py goal-info` when resuming or auditing goal metadata and checkpoint progress.
 - Configure `implement.jsonl` and `check.jsonl` only when the local workflow/platform uses context manifests or extra spec/research context is needed.
-- Low-risk ambiguity becomes a recorded default assumption; medium ambiguity uses `trellis-grill-agents` only to pressure-test evidence-backed assumptions; high-risk, scope-changing, or preference-dependent ambiguity becomes `BLOCKED`.
+- Low-risk ambiguity becomes a recorded default assumption; medium ambiguity uses `trellis-grill-agents` only to pressure-test evidence-backed assumptions; high-risk, scope-changing, credential/production/legal/destructive, or user-owned ambiguity becomes Stop/Block.
+- If the goal objective and Frozen Invariants remain unchanged, continue through autonomous research, grill, decision, implementation, verification, and Evidence Chain updates instead of falling back to the ordinary task clarification loop.
 - Goal execution must not bypass Trellis Phase 3.4 commit confirmation policy.
 
 ## References

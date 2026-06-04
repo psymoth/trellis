@@ -1,0 +1,4 @@
+{"file": ".trellis/spec/cli/backend/workflow-state-contract.md", "reason": "Check that workflow breadcrumb edits preserve runtime gates and do not introduce new status semantics."}
+{"file": ".trellis/spec/cli/unit-test/integration-patterns.md", "reason": "Template/workflow behavior checks should use existing integration test patterns."}
+{"file": ".trellis/tasks/06-04-optimize-trellis-autonomous-goal-workflow/design.md", "reason": "Check implementation against the planned boundary: no local runner, no new lifecycle, evidence-based autonomy only."}
+{"file": ".trellis/tasks/06-04-optimize-trellis-autonomous-goal-workflow/implement.md", "reason": "Check each checkpoint has evidence before being marked done."}

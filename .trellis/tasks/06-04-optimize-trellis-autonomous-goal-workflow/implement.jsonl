@@ -1,0 +1,4 @@
+{"file": ".trellis/spec/cli/backend/workflow-state-contract.md", "reason": "Workflow breadcrumb changes are runtime contract changes and must keep required phase gates reachable."}
+{"file": ".trellis/spec/cli/backend/script-conventions.md", "reason": "If task.py or Python script behavior is touched, preserve task lifecycle and JSON handling conventions."}
+{"file": ".trellis/tasks/06-04-optimize-trellis-autonomous-goal-workflow/research/community-goal-direction.md", "reason": "Community evidence for long-run autonomy, evidence chains, and decision harness design."}
+{"file": ".trellis/tasks/06-04-optimize-trellis-autonomous-goal-workflow/research/grill-agents-autonomous-goal-planning.md", "reason": "Proxy grill decisions to use when implementing autonomous goal workflow changes."}
