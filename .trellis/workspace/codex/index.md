@@ -8,8 +8,8 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 3
-- **Last Active**: 2026-06-04
+- **Total Sessions**: 4
+- **Last Active**: 2026-06-05
 <!-- @@@/auto:current-status -->
 
 ---
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~108 | Active |
+| `journal-1.md` | ~147 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 4 | 2026-06-05 | Chinese human-readable Trellis artifacts | `0c62e6c1` | `main` |
 | 3 | 2026-06-04 | Autonomous Trellis Goal workflow | `7758e99d` | `main` |
 | 2 | 2026-06-04 | Architecture shaping workflow | `bab60ee4` | `main` |
 | 1 | 2026-05-31 | Upgrade Kun Trellis to 0.6 beta | `7059a1e`, `0e8f196`, `81120ac` | `kun-port-v0.6.0-beta.21` |

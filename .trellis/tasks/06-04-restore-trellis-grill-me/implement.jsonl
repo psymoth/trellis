@@ -1,0 +1,13 @@
+{"file":".trellis/tasks/06-04-restore-trellis-grill-me/prd.md","reason":"Task requirements, accepted user intent, scope question, and acceptance criteria."}
+{"file":".trellis/tasks/06-04-restore-trellis-grill-me/design.md","reason":"Technical design boundary for restoring trellis-grill-me as an attended Trellis skill."}
+{"file":".trellis/tasks/06-04-restore-trellis-grill-me/implement.md","reason":"Implementation checkpoints, validation policy, and open decision before start."}
+{"file":"packages/cli/src/templates/common/bundled-skills/trellis-grill-agents/SKILL.md","reason":"Existing unattended sibling that references trellis-grill-me and defines sibling boundary."}
+{"file":"packages/cli/src/templates/trellis/workflow.md","reason":"Generated workflow routing and Grill Gate source of truth."}
+{"file":"packages/cli/src/templates/common/skills/brainstorm.md","reason":"Common brainstorm skill Grill Gate guidance."}
+{"file":"packages/cli/src/templates/common/commands/continue.md","reason":"Planning resume routing and Grill Gate status guidance."}
+{"file":"packages/cli/src/configurators/shared.ts","reason":"Skill wrapping, bundled skill resolution, and managed skill write path."}
+{"file":"packages/cli/test/configurators/index.test.ts","reason":"Template tracking tests for bundled skills."}
+{"file":"packages/cli/test/templates/trellis.test.ts","reason":"Workflow and Grill Gate routing tests."}
+{"file":".trellis/spec/cli/backend/configurator-shared.md","reason":"Shared configurator helper contract when editing shared.ts or skill resolution behavior."}
+{"file":".trellis/spec/cli/backend/platform-integration.md","reason":"Platform skill generation and managed output conventions."}
+{"file":".trellis/spec/cli/unit-test/conventions.md","reason":"Focused test conventions for template/configurator changes."}

@@ -112,3 +112,36 @@ Clarified delegated autonomy for Trellis Goal, added template contracts and regr
 ### Next Steps
 
 - None - task complete
+
+
+## Session 4: Chinese human-readable Trellis artifacts
+
+**Date**: 2026-06-05
+**Task**: Chinese human-readable Trellis artifacts
+**Branch**: `main`
+
+### Summary
+
+Localized default human-readable task artifacts to Chinese while preserving English technical terms, added task-creation guidance, and added pull-based prelude language policy.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `0c62e6c1` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
