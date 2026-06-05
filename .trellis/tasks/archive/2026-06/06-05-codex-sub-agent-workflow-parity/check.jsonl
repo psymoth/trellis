@@ -1,0 +1,7 @@
+{"file": ".trellis/spec/cli/backend/index.md", "reason": "CLI backend quality check index"}
+{"file": ".trellis/spec/cli/backend/commands-update.md", "reason": "Verify update path and template hash behavior when touched"}
+{"file": ".trellis/spec/cli/backend/workflow-state-contract.md", "reason": "Verify breadcrumb and sub-agent context contract remains safe"}
+{"file": ".trellis/spec/cli/backend/platform-integration.md", "reason": "Verify Codex platform template synchronization and update path"}
+{"file": ".trellis/spec/cli/backend/configurator-shared.md", "reason": "Verify pull-based prelude and collectTemplates invariants"}
+{"file": ".trellis/spec/cli/unit-test/index.md", "reason": "Verify relevant regression/unit tests are added or updated"}
+{"file": ".trellis/spec/guides/index.md", "reason": "Final cross-layer and cross-platform review"}

@@ -1,0 +1,7 @@
+{"file": ".trellis/spec/cli/backend/index.md", "reason": "CLI backend spec index and pre-development checklist"}
+{"file": ".trellis/spec/cli/backend/commands-update.md", "reason": "Update path, template hash, and migration/release-manifest behavior"}
+{"file": ".trellis/spec/cli/backend/workflow-state-contract.md", "reason": "Workflow-state breadcrumb, Codex dispatch mode, and sub-agent context contract"}
+{"file": ".trellis/spec/cli/backend/platform-integration.md", "reason": "Codex platform integration and template synchronization rules"}
+{"file": ".trellis/spec/cli/backend/configurator-shared.md", "reason": "Pull-based prelude and shared configurator invariants for Codex sub-agents"}
+{"file": ".trellis/spec/cli/unit-test/index.md", "reason": "Unit/regression test conventions for CLI template and update changes"}
+{"file": ".trellis/spec/guides/index.md", "reason": "Shared cross-layer, cross-platform, and code-reuse thinking guides"}
