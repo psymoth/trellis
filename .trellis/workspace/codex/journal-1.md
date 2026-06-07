@@ -245,3 +245,37 @@ Implemented P0 Trellis workflow hardening: added script-level planning readiness
 ### Next Steps
 
 - None - task complete
+
+
+## Session 8: Localize new Trellis project docs
+
+**Date**: 2026-06-08
+**Task**: Localize new Trellis project docs
+**Branch**: `main`
+
+### Summary
+
+Localized new Trellis project docs to Chinese while preserving English technical terms; updated CLI init templates, tests, marketplace specs, and native workflow mirror.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `e8db58a0` | (see git log) |
+| `dcea04e` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

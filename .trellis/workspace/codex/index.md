@@ -8,8 +8,8 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 7
-- **Last Active**: 2026-06-05
+- **Total Sessions**: 8
+- **Last Active**: 2026-06-08
 <!-- @@@/auto:current-status -->
 
 ---
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~247 | Active |
+| `journal-1.md` | ~281 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 8 | 2026-06-08 | Localize new Trellis project docs | `e8db58a0`, `dcea04e` | `main` |
 | 7 | 2026-06-05 | Harden Trellis planning and goal validation | `70c19aaa` | `main` |
 | 6 | 2026-06-05 | Codex sub-agent workflow parity | `6f1cd4aa` | `main` |
 | 5 | 2026-06-05 | Restore trellis-grill-me | `7f14da2d`, `224a50b` | `main` |
