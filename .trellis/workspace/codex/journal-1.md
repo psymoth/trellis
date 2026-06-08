@@ -279,3 +279,36 @@ Localized new Trellis project docs to Chinese while preserving English technical
 ### Next Steps
 
 - None - task complete
+
+
+## Session 9: Add Codex doc organizer skill
+
+**Date**: 2026-06-09
+**Task**: Add Codex doc organizer skill
+**Branch**: `main`
+
+### Summary
+
+Added a Codex-only trellis-doc-organizer skill for in-place Trellis doc cleanup, covered Codex template loading/write/update tracking tests, and updated platform integration specs for codex-skills.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `24340ed1` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

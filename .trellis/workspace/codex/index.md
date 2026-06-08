@@ -8,8 +8,8 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 8
-- **Last Active**: 2026-06-08
+- **Total Sessions**: 9
+- **Last Active**: 2026-06-09
 <!-- @@@/auto:current-status -->
 
 ---
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~281 | Active |
+| `journal-1.md` | ~314 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 9 | 2026-06-09 | Add Codex doc organizer skill | `24340ed1` | `main` |
 | 8 | 2026-06-08 | Localize new Trellis project docs | `e8db58a0`, `dcea04e` | `main` |
 | 7 | 2026-06-05 | Harden Trellis planning and goal validation | `70c19aaa` | `main` |
 | 6 | 2026-06-05 | Codex sub-agent workflow parity | `6f1cd4aa` | `main` |
