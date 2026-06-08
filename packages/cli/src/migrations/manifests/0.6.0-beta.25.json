@@ -1,0 +1,9 @@
+{
+  "version": "0.6.0-beta.25",
+  "description": "Beta patch: localize new Trellis project docs and add the Codex-only Trellis document organizer skill.",
+  "breaking": false,
+  "recommendMigrate": false,
+  "changelog": "**Enhancements:**\n- feat(cli): generate new-project Trellis human-readable docs in Chinese by default while preserving technical terms.\n- feat(codex): install `.codex/skills/trellis-doc-organizer/SKILL.md` so Codex can organize existing Trellis task/spec/research docs in place and reduce downstream agent context.",
+  "migrations": [],
+  "notes": "Beta patch on top of 0.6.0-beta.24. Install with `npm install -g psymoth@beta`, then run `trellis update` in Codex-enabled Trellis projects to install the new doc organizer skill. No migration command is required."
+}
